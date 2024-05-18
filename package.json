@@ -2,7 +2,7 @@
   "name": "scanner",
   "productName": "scanner",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "No more embeded javascript code in your files",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -30,6 +30,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "electron-forge": "github:electron/forge",
     "electron-squirrel-startup": "^1.0.1"
   }
 }
