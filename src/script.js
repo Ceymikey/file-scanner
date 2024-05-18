@@ -46,22 +46,20 @@ async function readText(file) {
     });
 }
 
-function codeCheck(drawContent) {
-    const keywordPattern = /\b(eval|function|if|else|switch|case|default|while|do|for|continue|break|return|throw|try|catch|finally|new|delete|typeof|instanceof|this|true|false|null|undefined)\b/gi;
-
-    return keywordPattern.test(drawContent);
-}
-
 function showPopup() {
     popup.style.display = 'block';
     setTimeout(() => {
         popup.style.display = 'none';
-    }, 5000);
+    }, 10000); // 10k milisecond timeout so the popup will be gone after
 }
 
 function markMaliciousCode(drawContent) {
-    const maliciousCodePattern = /\b(eval|document\.write|setTimeout|setInterval|Function)\b/gi;
-    const formattedContent = drawContent.replace(maliciousCodePattern, '<span class="malicious">$&</span>');
-    const formattedWithBreaks = formattedContent.replace(/\n/g, '<br>');
-    return formattedWithBreaks;
+    const keywords = ['eval', 'const', 'document.write', 'setTimeout', 'setInterval', 'Function']; // Where we store out keywords
+
+    for (const keyword of keywords) {
+        const keywordPattern = new RegExp('\\b' + keyword + '\\b', 'gi');
+        drawContent = drawContent.replace(keywordPattern, `*${keyword}*`);
+    }
+
+    return drawContent;
 }
